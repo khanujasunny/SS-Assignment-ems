@@ -25,14 +25,19 @@ function insertRecord(req, res) {
     employee.city = req.body.city;
     employee.save((err, doc) => {
         if (!err)
-            res.redirect('employee/list');
+        {    res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(doc));
+            // res.redirect('employee/list');
+        }
         else {
             if (err.name == 'ValidationError') {
-                handleValidationError(err, req.body);
-                res.render("employee/addOrEdit", {
-                    viewTitle: "Add Employee",
-                    employee: req.body
-                });
+                // handleValidationError(err, req.body);
+                // res.render("employee/addOrEdit", {
+                //     viewTitle: "Add Employee",
+                //     employee: req.body
+                // });
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(err));
             }
             else
                 console.log('Error during record insertion : ' + err);
@@ -61,9 +66,12 @@ function updateRecord(req, res) {
 router.get('/list', (req, res) => {
     Employee.find((err, docs) => {
         if (!err) {
-            res.render("employee/list", {
-                list: docs
-            });
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(docs));
+            // return docs;
+            // res.render("employee/list", {
+            //     list: docs
+            // });
         }
         else {
             console.log('Error in retrieving employee list :' + err);
@@ -90,10 +98,12 @@ function handleValidationError(err, body) {
 router.get('/:id', (req, res) => {
     Employee.findById(req.params.id, (err, doc) => {
         if (!err) {
-            res.render("employee/addOrEdit", {
-                viewTitle: "Update Employee",
-                employee: doc
-            });
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(doc));
+            // res.render("employee/addOrEdit", {
+            //     viewTitle: "Update Employee",
+            //     employee: doc
+            // });
         }
     }).lean();
 });
@@ -101,10 +111,22 @@ router.get('/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     Employee.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.redirect('/employee/list');
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(doc));
+            // res.redirect('/employee/list');
         }
         else { console.log('Error in employee delete :' + err); }
     });
+});
+
+
+router.get('/getemaildetail/:email', (req, res) => {
+    Employee.findOne({ email: req.params.email }, req.params, { new: true }, (err, doc) => {
+        if (!err) {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(doc));
+        }
+    }).lean();
 });
 
 module.exports = router;
