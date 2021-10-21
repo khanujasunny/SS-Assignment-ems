@@ -1,0 +1,37 @@
+{
+  "name": "ems-bits-assignment",
+  "version": "1.0.0",
+  "description": ">> Install MongoDB Compass  https://www.mongodb.com/try/download/compass",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "mocha --recursive --exit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4",
+    "mime": "^2.5.2",
+    "mockgoose": "^8.0.4",
+    "mongoose": "^6.0.10",
+    "nodemon": "^2.0.13",
+    "supertest": "^6.1.6"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khanujasunny/SS-Assignment-ems.git"
+  },
+  "bugs": {
+    "url": "https://github.com/khanujasunny/SS-Assignment-ems/issues"
+  },
+  "homepage": "https://github.com/khanujasunny/SS-Assignment-ems#readme"
+}
